@@ -7,7 +7,8 @@ It includes patches to work with the new GetResponse API and additional methods.
 
 Author:
 
-Robert Staddon
-robert@abundantdesigns.com
-www.abundantdesigns.com
+Robert Staddon<br />
+robert@abundantdesigns.com<br />
+www.abundantdesigns.com<br />
 https://github.com/robertstaddon
+
