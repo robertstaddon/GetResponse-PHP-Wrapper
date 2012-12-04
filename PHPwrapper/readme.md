@@ -1,9 +1,9 @@
 If you have any questions please write directly to: 
 
-Ben Tadiar
-ben@bentadiar.co.uk
-www.assemblystudios.co.uk
-http://github.com/BenTheDesigner
+Robert Staddon
+robert@abundantdesigns.com
+www.abundantdesigns.com
+http://github.com/robertstaddon
 
 
 
