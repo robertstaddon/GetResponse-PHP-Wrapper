@@ -1,8 +1,8 @@
 If you have any questions please write directly to: 
 
-Robert Staddon
-robert@abundantdesigns.com
-www.abundantdesigns.com
+Robert Staddon<br />
+robert@abundantdesigns.com<br />
+www.abundantdesigns.com<br />
 http://github.com/robertstaddon
 
 
