@@ -334,6 +334,23 @@ class GetResponse
 	}
 	
 	/**
+	* Get Contact info
+	* @param $field is the email address
+	* @return object
+	**/
+	public function getContactByEmail($field)
+	{	
+		$params = null;
+		//$field is the email
+		$operator = 'CONTAINS'; 
+		$comparison = $field; 
+		if($field) $params['email'] = $this->prepTextOp($operator, $comparison);
+		$request  = $this->prepRequest('get_contacts', $params);
+		$response = $this->execute($request);
+		return $response;
+	}
+	
+	/**
 	 * Set custom contact information
 	 * $customs is an associative array, the keys of which should correspond to the
 	 * custom field name you wish to add/modify/remove.
