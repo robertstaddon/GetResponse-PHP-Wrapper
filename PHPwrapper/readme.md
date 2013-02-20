@@ -5,7 +5,10 @@ robert@abundantdesigns.com<br />
 www.abundantdesigns.com<br />
 http://github.com/robertstaddon
 
-
+Shashank Agarwal<br />
+shashank@thegeeklabs.com<br />
+http://thegeeklabs.com<br/>
+https://github.com/imshashank<br/>
 
 ## GetResponsePHP
 
