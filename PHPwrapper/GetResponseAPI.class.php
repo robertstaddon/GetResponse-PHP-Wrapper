@@ -133,6 +133,18 @@ class GetResponse
 		$response = $this->execute($request);
 		return $response;
 	}
+	
+	/**
+	 * Return a campaign ID by name
+	 * @param string $name Campaign Name
+	 * @return string Campaign ID
+	 */
+	public function getCampaignByName($name)
+	{
+		$request  = $this->prepRequest('get_campaigns', array('name' => array('EQUALS' => $name)));
+		$response = $this->execute($request);
+		return key($response);
+	}
 
 	/**
 	 * Return a list of messages, optionally filtered by multiple conditions
