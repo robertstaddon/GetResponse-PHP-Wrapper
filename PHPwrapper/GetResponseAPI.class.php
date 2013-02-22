@@ -274,6 +274,30 @@ class GetResponse
 		$response = $this->execute($request);
 		return $response;
 	}
+	
+	/**
+	 * Return the user ID of the user presnt in the $campaignID & $email
+	 * used for getting a specific user ID of a contact from a specific campaign whose email is known
+	 * @param string $campaignID 
+	 * @param string $email
+	 * @return object 
+	 */
+	public function searchContact($email,$campaignID)
+	{
+		$params = null;
+		//$field is the email
+		$operator = 'CONTAINS'; 
+		$comparison = $email; 
+		if($email){
+		$params['email'] = $this->prepTextOp($operator, $comparison);
+		$params['campaigns'] = ["$campaignID"];
+		}	
+		$request  = $this->prepRequest('get_contacts', $params);
+		$response = $this->execute($request);
+		
+		return $response;
+		}
+		
 
 	/**
 	 * Return a list of users filtered by custom contact information
