@@ -290,7 +290,7 @@ class GetResponse
 		$comparison = $email; 
 		if($email){
 		$params['email'] = $this->prepTextOp($operator, $comparison);
-		$params['campaigns'] = ["$campaignID"];
+		$params['campaigns'] = array$campaignID;
 		}	
 		$request  = $this->prepRequest('get_contacts', $params);
 		$response = $this->execute($request);
