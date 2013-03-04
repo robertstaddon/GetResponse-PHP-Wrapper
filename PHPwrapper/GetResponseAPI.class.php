@@ -259,7 +259,8 @@ class GetResponse
 	 * Return a list of contacts, optionally filtered by multiple conditions
 	 * @todo Implement all conditions, this is unfinished
 	 * @param array|null $campaigns Optional argument to narrow results by campaign ID
-	 * @param string $operator
+	 * @param string $operator Optional argument to change operator (default is 'CONTAINS')
+	 *		See https://github.com/GetResponse/DevZone/tree/master/API#operators for additional operator options
 	 * @param string $comparison
 	 * @param array $fields (an associative array, the keys of which should enable/disable comparing name or email)
 	 * @return object
@@ -277,16 +278,16 @@ class GetResponse
 
 	/**
 	 * Return a list of contacts by email address (optionally narrowed by campaign)
-	 * @param string $email  Email Address of Contact (or any string contained in the email address)
-	 * @param array|null $campaigns  Optional argument to narrow results by campaign ID 
+	 * @param string $email Email Address of Contact (or a string contained in the email address)
+	 * @param array|null $campaigns Optional argument to narrow results by campaign ID 
+	 * @param string $operator Optional argument to change operator (default is 'CONTAINS')
+	 *		See https://github.com/GetResponse/DevZone/tree/master/API#operators for additional operator options
 	 * @return object 
 	 */
-	public function getContactsByEmail($email, $campaigns = null)
+	public function getContactsByEmail($email, $campaigns = null, $operator = 'CONTAINS')
 	{
 		$params = null;
-		$operator = 'CONTAINS'; 
-		$comparison = $email; 
-		$params['email'] = $this->prepTextOp($operator, $comparison);
+		$params['email'] = $this->prepTextOp($operator, $email);
 		if(is_array($campaigns)) $params['campaigns'] = $campaigns;
 		$request  = $this->prepRequest('get_contacts', $params);
 		$response = $this->execute($request);
