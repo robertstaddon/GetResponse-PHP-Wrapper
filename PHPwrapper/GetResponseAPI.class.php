@@ -256,7 +256,7 @@ class GetResponse
 	}
 	
 	/**
-	 * Return a list of users, optionally filtered by multiple conditions
+	 * Return a list of contacts, optionally filtered by multiple conditions
 	 * @todo Implement all conditions, this is unfinished
 	 * @param array|null $campaigns Optional argument to narrow results by campaign ID
 	 * @param string $operator
@@ -276,7 +276,25 @@ class GetResponse
 	}
 
 	/**
-	 * Return a list of users filtered by custom contact information
+	 * Return a list of contacts by email address (optionally narrowed by campaign)
+	 * @param string $email  Email Address of Contact (or any string contained in the email address)
+	 * @param array|null $campaigns  Optional argument to narrow results by campaign ID 
+	 * @return object 
+	 */
+	public function getContactsByEmail($email, $campaigns = null)
+	{
+		$params = null;
+		$operator = 'CONTAINS'; 
+		$comparison = $email; 
+		$params['email'] = $this->prepTextOp($operator, $comparison);
+		if(is_array($campaigns)) $params['campaigns'] = $campaigns;
+		$request  = $this->prepRequest('get_contacts', $params);
+		$response = $this->execute($request);
+		return $response;
+	}
+	
+	/**
+	 * Return a list of contacts filtered by custom contact information
 	 * $customs is an associative arrays, the keys of which should correspond to the
 	 * custom field names of the customers you wish to retrieve.
 	 * @param array|null $campaigns Optional argument to narrow results by campaign ID 
@@ -308,23 +326,6 @@ class GetResponse
 		return $response;
 	}
 
-	/**
-	 * Return a contact by email address (and optionally narrow to a particular campaign)
-	 * @param string $email  Email Address of Contact
-	 * @param array|null $campaigns  Optional argument to narrow results by campaign ID 
-	 * @return object 
-	 */
-	public function getContactByEmail($email, $campaigns = null)
-	{
-		$params = null;
-		$operator = 'CONTAINS'; 
-		$comparison = $email; 
-		$params['email'] = $this->prepTextOp($operator, $comparison);
-		if(is_array($campaigns)) $params['campaigns'] = $campaigns;
-		$request  = $this->prepRequest('get_contacts', $params);
-		$response = $this->execute($request);
-		return $response;
-	}
 	
 	/**
 	 * Set a contact name
