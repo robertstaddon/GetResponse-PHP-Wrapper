@@ -354,12 +354,12 @@ class GetResponse
 	/**
 	 * Set a contact campaign
 	 * @param string $id User ID
-	 * @param int $campaignID Campaign ID
+	 * @param string $campaign Campaign ID
 	 * @return object
 	 */
-	public function setContactCampaign($id, $campaignID)
+	public function setContactCampaign($id, $campaign)
 	{
-		$request  = $this->prepRequest('move_contact', array('contact' => $id, 'campaign' => $campaignID));
+		$request  = $this->prepRequest('move_contact', array('contact' => $id, 'campaign' => $campaign));
 		$response = $this->execute($request);
 		return $response;
 	}
