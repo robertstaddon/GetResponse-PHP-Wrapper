@@ -274,30 +274,6 @@ class GetResponse
 		$response = $this->execute($request);
 		return $response;
 	}
-	
-	/**
-	 * Return the user ID of the user presnt in the $campaignID & $email
-	 * used for getting a specific user ID of a contact from a specific campaign whose email is known
-	 * @param string $campaignID 
-	 * @param string $email
-	 * @return object 
-	 */
-	public function searchContact($email,$campaignID)
-	{
-		$params = null;
-		//$field is the email
-		$operator = 'CONTAINS'; 
-		$comparison = $email; 
-		if($email){
-		$params['email'] = $this->prepTextOp($operator, $comparison);
-		$params['campaigns'] = array$campaignID;
-		}	
-		$request  = $this->prepRequest('get_contacts', $params);
-		$response = $this->execute($request);
-		
-		return $response;
-		}
-		
 
 	/**
 	 * Return a list of users filtered by custom contact information
@@ -328,6 +304,24 @@ class GetResponse
 	public function getContactByID($id)
 	{
 		$request  = $this->prepRequest('get_contact', array('contact' => $id));
+		$response = $this->execute($request);
+		return $response;
+	}
+
+	/**
+	 * Return a contact by email address (and optionally narrow to a particular campaign)
+	 * @param string $email  Email Address of Contact
+	 * @param array|null $campaigns  Optional argument to narrow results by campaign ID 
+	 * @return object 
+	 */
+	public function getContactByEmail($email, $campaigns = null)
+	{
+		$params = null;
+		$operator = 'CONTAINS'; 
+		$comparison = $email; 
+		$params['email'] = $this->prepTextOp($operator, $comparison);
+		if(is_array($campaigns)) $params['campaigns'] = $campaigns;
+		$request  = $this->prepRequest('get_contacts', $params);
 		$response = $this->execute($request);
 		return $response;
 	}
@@ -382,23 +376,7 @@ class GetResponse
 		return $response;
 	}
 	
-	/**
-	* Get Contact info
-	* @param $field is the email address
-	* @return object
-	**/
-	public function getContactByEmail($field)
-	{	
-		$params = null;
-		//$field is the email
-		$operator = 'CONTAINS'; 
-		$comparison = $field; 
-		if($field) $params['email'] = $this->prepTextOp($operator, $comparison);
-		$request  = $this->prepRequest('get_contacts', $params);
-		$response = $this->execute($request);
-		return $response;
-	}
-	
+
 	/**
 	 * Set custom contact information
 	 * $customs is an associative array, the keys of which should correspond to the
