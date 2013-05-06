@@ -150,7 +150,7 @@ class GetResponse
 	 * Return a list of messages, optionally filtered by multiple conditions
 	 * @todo Implement all conditions, this is unfinished
 	 * @param array|null $campaigns  Optional argument to narrow results by campaign ID
-	 * @param string|null $type  Optional argument to narrow results by "newsletter" or "follow-up"
+	 * @param string|null $type  Optional argument to narrow results by "newsletter", "autoresponder", or "draft"
 	 * @param string $operator
 	 * @param string $comparison
 	 * @return object
@@ -178,7 +178,7 @@ class GetResponse
 	}
 
 	/**
-	 * Return a follow-up message from a campaign by Cycle Day
+	 * Return an autoresponder message from a campaign by Cycle Day
 	 * @param string $campaign Campaign ID
 	 * @param string $cycle_day Cycle Day
 	 * @return object
@@ -186,7 +186,7 @@ class GetResponse
 	public function getMessageByCycleDay($campaign, $cycle_day)
 	{
 		$params['campaigns'] = array($campaign);
-		$params['type'] = "follow-up";
+		$params['type'] = "autoresponder";
 		$request  = $this->prepRequest('get_messages', $params);
 		$response = $this->execute($request);
 		foreach($response as $key => $message) if($message->day_of_cycle!=$cycle_day) unset($response->$key);
@@ -206,7 +206,7 @@ class GetResponse
 	}
 
 	/**
-	 * Return follow-up message contents by Cycle Day
+	 * Return autoresponder message contents by Cycle Day
 	 * @param string $campaign Campaign ID
 	 * @param string $cycle_day Cycle Day
 	 * @return object|null
@@ -214,7 +214,7 @@ class GetResponse
 	public function getMessageContentsByCycleDay($campaign, $cycle_day)
 	{
 		$params['campaigns'] = array($campaign);
-		$params['type'] = "follow-up";
+		$params['type'] = "autoresponder";
 		$request  = $this->prepRequest('get_messages', $params);
 		$response = $this->execute($request);
 		foreach($response as $key => $message) if($message->day_of_cycle==$cycle_day) return $this->getMessageContents($key);
@@ -222,7 +222,7 @@ class GetResponse
 	}
 	
 	/**
-	 * Add follow-up to a campaign at a specific day of cycle
+	 * Add autoresponder to a campaign at a specific day of cycle
 	 * @param string $campaign Campaign ID
 	 * @param string $subject Subject of message
 	 * @param array $contents Allowed keys are "plain" and "html", at least one is mandatory
@@ -231,26 +231,26 @@ class GetResponse
 	 * @param array $flags Enables extra functionality for a message: "clicktrack", "subscription_reminder", "openrate", "google_analytics"
 	 * @return object
 	 */
-	public function addFollowUp($campaign, $subject, $cycle_day, $html = null, $plain = null, $from_field = null, $flags = null)
+	public function addAutoresponder($campaign, $subject, $cycle_day, $html = null, $plain = null, $from_field = null, $flags = null)
 	{
 		$params = array('campaign' => $campaign, 'subject' => $subject, 'day_of_cycle' => $cycle_day);
 		if(is_string($html)) $params['contents']['html'] = $html;
 		if(is_string($plain)) $params['contents']['plain'] = $plain;
 		if(is_string($from_field)) $params['from_field'] = $from_field;
 		if(is_array($flags)) $params['flags'] = $flags;
-		$request  = $this->prepRequest('add_follow_up', $params);
+		$request  = $this->prepRequest('add_autoresponder', $params);
 		$response = $this->execute($request);
 		return $response;
 	}
 	
 	/**
-	 * Delete a follow-up email
+	 * Delete an autoresponder
 	 * @param string $id
 	 * @return object
 	 */
-	public function deleteFollowUp($id)
+	public function deleteAutoresponder($id)
 	{
-		$request  = $this->prepRequest('delete_follow_up', array('message' => $id));
+		$request  = $this->prepRequest('delete_autoresponder', array('message' => $id));
 		$response = $this->execute($request);
 		return $response;
 	}
