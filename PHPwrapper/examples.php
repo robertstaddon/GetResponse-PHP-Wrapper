@@ -29,9 +29,9 @@ $opens 		= $api->getContactOpens($contactIDs[0]);
 $clicks 	= $api->getContactClicks($contactIDs[0]);
 
 // Find the contact ID by using email ID and delete the contact
-$contactEmail = (array)$api->getContactsByEmail('EMAIL_ID');
+$contactEmail	= (array)$api->getContactsByEmail('EMAIL_ID');
 $contactEmailID	= array_keys($contactEmail);
-$deleteResponse 	= $api->deleteContact($contactEmailID[0]); 
+$deleteResponse	= $api->deleteContact($contactEmailID[0]); 
 
 
 var_dump($contacts, $setName, $setCustoms, $customs, $contact, $geoIP, $opens, $clicks);
