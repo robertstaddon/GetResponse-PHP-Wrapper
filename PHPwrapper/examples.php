@@ -28,11 +28,11 @@ $geoIP 		= $api->getContactGeoIP($contactIDs[0]);
 $opens 		= $api->getContactOpens($contactIDs[0]);
 $clicks 	= $api->getContactClicks($contactIDs[0]);
 
-/* Find the contact ID by using email ID and delete the contact */
-$contacts_email = (array)$api->getContactsByEmail('EMAIL ID');
-$contactsID_email	= array_keys($contacts_email);
-$delete_contact 	= $api->deleteContact($contactsID_email[0]); 
-/* -----------------  End -------------------------------*/
+// Find the contact ID by using email ID and delete the contact
+$contactEmail = (array)$api->getContactsByEmail('EMAIL_ID');
+$contactEmailID	= array_keys($contactEmail);
+$deleteResponse 	= $api->deleteContact($contactEmailID[0]); 
+
 
 var_dump($contacts, $setName, $setCustoms, $customs, $contact, $geoIP, $opens, $clicks);
 
