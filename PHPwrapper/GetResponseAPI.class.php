@@ -206,6 +206,21 @@ class GetResponse
 	}
 
 	/**
+	 * Return message statistics
+	 * @param string $message Message ID
+	 * @param string $grouping grouping
+	 * @return object|null
+	 */
+	public function getMessageStats($message, $grouping = "yearly")
+	{
+		$params['message'] = $message;
+		$params['grouping'] = $grouping;
+		$request  = $this->prepRequest('get_message_stats', $params);
+		$response = $this->execute($request);
+		return $response;
+	}
+
+	/**
 	 * Return autoresponder message contents by Cycle Day
 	 * @param string $campaign Campaign ID
 	 * @param string $cycle_day Cycle Day
