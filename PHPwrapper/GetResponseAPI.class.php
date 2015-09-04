@@ -470,10 +470,13 @@ class GetResponse
 	 * @param array $customs
 	 * @return object
 	 */
-	public function addContact($campaign, $name, $email, $action = 'standard', $cycle_day = 0, $customs = array())
+	public function addContact($campaign, $name = '', $email, $action = 'standard', $cycle_day = 0, $customs = array())
 	{
-		$params = array('campaign' => $campaign, 'action' => $action, 'name' => $name,
-						'email' => $email, 'cycle_day' => $cycle_day);
+		$params = array('campaign' => $campaign, 'action' => $action, 'email' => $email, 'cycle_day' => $cycle_day);
+	
+		if(!empty($name))
+			$params['name'] = $name;
+			
 		if($this->isValidIp($_SERVER['REMOTE_ADDR'])){
 			echo '<h2>';
 			echo $_SERVER['REMOTE_ADDR'];
