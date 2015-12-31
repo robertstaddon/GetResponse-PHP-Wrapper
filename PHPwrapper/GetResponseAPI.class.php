@@ -66,7 +66,10 @@ class GetResponse
 	{
 		$request  = $this->prepRequest('ping');
 		$response = $this->execute($request);
-		return $response->ping;
+		if(!empty($response) && !empty($response->ping))
+		    return $response->ping;
+		else
+		    return $response;
 	}
 	
 	/**
